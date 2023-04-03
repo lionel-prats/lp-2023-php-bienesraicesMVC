@@ -1,0 +1,282 @@
+"npm run dev" o "npx gulp" para activar gulp 
+
+-----
+
+VIDEO 361
+composer init para crear y configurar el composer.json 
+composer update crea la carpeta vendor, que incluye el archivo autoload.php (nos sirve para importar clases, en nuestro caso desde la carpeta /classes - asi lo especificamos en composer.json -)
+
+-----
+
+VIDEO 369
+Instalacion y uso de la libreria Intervetion Image para subir imagenes al servidor
+composer require intervention/image 
+
+la libreria es una clases
+
+-----
+
+VIDEO 370
+
+property_exists($objeto, $key)
+
+* funcion PHP para saber si una llave existe dentro de un objeto
+
+-----
+
+VIDEO 372
+
+funciones.php -> s();
+
+funcion PHP htmlspecialchars();
+
+ejemplo para entender:
+
+* al principio del codigo (crear.php) tire este echo vvv
+
+echo "<script>alert('hola')</script>";
+exit;
+** esto me genera un alert (js) ya que escribe codigo js en el documento HTML
+
+* si luego, tiro este eho vvv 
+
+echo htmlspecialchars("<script>alert('hola')</script>"); ;
+exit;
+** con esta funcion "anulo" el comportamiento js y simplemente se imprime por pantalla <script>alert('hola')</script> 
+
+*** usamos esta funcion para sanitizar datos de entrada en el formulario de crear propiedad
+*** para esto, creamos la funcion s() en funciones.php
+
+-----
+
+VIDEO 373
+
+array_shift();
+
+* funcion PHP que retorna el primer elemento de un array.
+
+-----
+
+VIDEO 375
+
+strpos("monitos.jpg", ".") -> retorna la posicion del caracter pasado como 2do. argumento (en este caso 7)
+substr("monitos.jpg", 8) -> retorna un substring empezando por la posicion pasada como 2do argumento (en este caso "jpg");
+
+-----
+
+VIDEO 376
+
+file_exists(CARPETA_IMAGENES . $oldImage) -> funcion para averiguar si un archivo existe dentro del proyecto
+
+-----
+
+VIDEO 381 
+
+en la clase ActiveRecord vvv 
+
+protected static tabla = "";
+
+con "protected" este atributo solo puede ser accedido desde la propia clase, no puede modificarse desde los objetos  
+
+MODIFICADOR DE ACCESO static vvv
+
+static::$tabla
+
+lo usamos en la clase ActiveRecord para referenciar al atributo estatico $tabla, reescrito en las Clases Propiedad y Vendedor
+
+-----
+
+VIDEO 382 
+
+En la clase ActiveRecord, metodo crearObjeto() vvv
+
+$objeto = new static;
+
+con "new static" voy a crear una instancia de la la clase desde donde se invoque a este metodo crearObjeto()
+
+-----
+
+VIDEO 384
+
+*** (auto)explicacion de los modificadores de acceso
+*** en ActiveRecord vvv
+
+public $errores = []; -> podria accederlo desde una instancia de la clase (un objeto)
+protected static $errores = []; -> podria accederlo desde una clase hija que herede una clase padre
+private static $errores = []; -> solo puedo accederlo desde la clase donde existe el atributo
+
+*** VERIFICAR
+
+-----
+
+VIDEO 387
+
+in_array($valor_a_buscar, $array) : bool;
+
+funcion que busca un valor en un array, retornando un booleano
+
+-----
+
+*** En este videos surge un problema: me tira error si quiero eliminar un vendedor con alguna propiedad asociada (propiedades.vendedores_id = vendedor.id).
+*** Entre las consultas de la clase se encuentra esta respuesta a ese problema vvv 
+
+PREGUNTA -> hola no puedo elimiar vendedores no entiendo la razon
+
+RESPUESTA
+Hola Ángel.
+En MySQL existe algo llamado integridad referencial significa que cuando un registro en una tabla haga referencia a un registro en otra tabla, el registro correspondiente debe existir. Por lo que no puedes eliminar un registro si otro registro depende del que estas intentando eliminar.
+Esto lo veremos mas adelante en el curso.
+Lo que tienes que hacer es modificar tus foreign keys, desde Tableplus, das clic derecho sobre la tabla propiedades y seleccionas Open structure.
+Seleccionas el fk de vendedores dando clic en la flecha que aparece hacia la derecha ->
+Seleccionas nuevamente vendedores y modificas la opción SET NULL tanto de On Update como On Delete, esto te permitirá borrar un vendedor, conservando los registros de las propiedades, automáticamente el campo vendedor pasara a null en las propiedades donde existía el vendedor que hayas borrado.
+
+-----
+
+*** en /admin/index.php, al momento de eliminar una propiedad o un vendedor, el "alert" de exito en todos los casos dice "Propiedad Eliminada Correctamente"
+*** esto es porque desde el metodo eliminar() en ActiveRecord redirigimos al mismo archivo luego del DELETE pasandole como queryString "/?result=3" en la URL y en el HTML del archivo está seteado para mostrar la leyenda mencionada en caso de result=3
+*** "lo solucionaremos mas adelante"
+
+-----
+
+VIDEO 388
+
+*** AFIANZANDO LO APRENDIDO 
+* creo el archivo /admin/vendedores/crear.php 
+* hago un use de Vendedor -> use App\Vendedor;
+* instancio Vendedor -> $vendedor = new Vendedor();
+* Esto solo funciona si dispongo del archivo /vendor/autoload.php en este archivo
+* Para disponer de dicho archivo alcanza con hacer un require de /includes/app.php, ya que este archivo incluye un require del archivo /vendor/autoload.php
+
+*** intval("155a1556") retorna el valor integer de una variable
+* en este ejemplo, retorna int(155)
+
+*** is_numeric("155a1556") retorna true si el valor es numerico, false si no lo es
+* en este ejemplo, retorna bool(false)
+
+*** strlen(1551556) retorna un integer con la cantidad de caracteres o dígitos del valor pasado como parametro
+* en este ejemplo, retorna int(7)
+
+-----
+
+VIDEO 389
+
+"la mejor forma de validar que el usuario este ingresando solo numeros desde un form es usando expresiones regulares"
+
+preg_match($expresion_regular, $string) -> funcion nativa de PHP para usar expresiones regulares buscando patrones en strings
+
+* estamos en el formulario de registro de un vendedor
+* vamos a usar expresiones regulares para validar que el nro de telefono ingresado por el usuario sea un numero valido (sin caracteres alfanumericos)
+* en PHP, para trabajar con expresiones regulares usamos la funcion nativa preg_match()
+* esta validacion la haremos en el metodo validar() de Vendedor
+
+EXPRESION REGULAR 
+
+"una expresion regular es una forma de buscar un patron dentro de un texto"
+
+-----
+
+preg_match('/[0-9]{10}/', $this->telefono)
+* con [0-9] seteo que solo se acepten como validos los caracteres 0,1,2,3,4,5,6,7,8 & 9 
+* con {10} seteo que espero 10 caracteres
+*** en mi caso esto no funciono exactamente como deberia, asi que me puse con el tutorial de coders free sobre expresiones regulares vvv
+https://www.youtube.com/watch?v=xGaXH7spCyA&t=750s
+
+-----
+
+VIDEO 390
+
+filter_var($variable, FILTER_VALIDATE_INT)
+* la funcion filter_var() permite hacer validaciones de los tipos de datos que contiene una variable.
+* en este caso, con la constante FILTER_VALIDATE_INT validamos si la variable es u integer
+* hasta aca la usamos para validar que los id de inmueble o vendedor que vienen por GET sean valores numericos (o sea, para sanitizar el dato (?)) 
+* esto lo hacemos en los archivos actualizar.php correspondiente a cada tabla
+
+-----
+
+VIDEO 392
+
+* convertimos el archivo /includes/templates/anuncios.php a la forma orientada a objetos
+* borramos el cierre de la conexion a la BD, que teniamos de la forma anterior (funcional (?)) vvv
+
+<?php 
+    mysqli_close($db);
+?>
+
+* el profesor explica que el metodo free() definido en el metodo consultarSQL() de la clase ActiveRecord ($resultado->free()) es la forma orientada a objetos de liberar la memoria
+
+* tambien convertimos anuncio.php a la forma orientada a objetos
+
+-----
+
+VIDEO 393 
+
+usamos el arreglo global $_SERVER
+
+$_SERVER["REQUEST_URI"] => string(26) "/bienesraices/index.php"
+
+$_SERVER["SCRIPT_NAME"] => string(26) "/bienesraices/anuncios.php"
+
+* de esta forma podemos saber que archivo.php del proyecto se esta mandando a llamar o ejecutando
+
+* de esta manera, en /includes/templates/anuncios.php mandamos a llamar al metodo estatico all() de ActiveRecord para traer todas las propiedades (cuando se ejecute anuncios.php) o al metodo estatico get() de ActiveRecord para traer una cantidad determinada de propiedades, cuando se ejecute el index.php del proyecto
+
+--------------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------------------------
+
+VIDEO 395 (en este video empezamos a pasar el proyecto al patron de diseño MVC - tambien llamado patron de arquitectura de software -)
+
+* Creamos el proyecto bienesraicesMVC 
+
+* Creo la carpeta /public
+    "todo lo que este en public es a lo que los usuarios pueden acceder"
+
+php -S locahost:3000 -> para levantar un servidor local (servidor de desarrollo)
+
+* copie composer.json
+* copie composer.lock
+
+* en la consola -> composer install -> se crea la carpeta /vendor
+"composer es como el package.json de Node, es muy similar, se inspiraron en el"
+
+* copie /classes y la renombre /models
+
+* copie gulpfile.js
+* copie package.json
+* copie package-lock.json
+
+* en la consola -> npm i -> se crea la carpeta /node_modules, con, entre otras, todas las dependencias en el package.json y que usamos en gulpile.js
+
+* en gulpfile.js modifico las rutas del metodo dest(), que lo usamos en varias funciones para ubicar en la carpeta /build todo el .css, el .js y las imagenes de los inmuebles vvv
+
+ruta anterior -> dest('./build/js')
+ruta editada -> dest('./public/build/js')
+*** este ejemplo es de javascript(). Esto mismo lo replicamos en las funciones
+- css()
+- javascript()
+- imagenes()
+- versionWebp()
+
+* corri npm run dev en la consola y se creo correctamente la carpeta /public/build con las subcarpetas /css, /img y /js
+
+* copie /src
+
+* copie /includes
+
+* Creo la carpeta /controllers
+
+* Creo la carpeta /views
+
+-----
+
+VIDEO 396
+
+lp-2023-php-bienesraices
+
+
+
+
+
+
+
+
+
