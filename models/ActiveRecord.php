@@ -1,9 +1,8 @@
 <?php 
 
-namespace App;
+namespace Model;
 
 class ActiveRecord {
-    
     // en este atributo estatico almacenamos una instancia de la conexion a la base de datos base de datos
     // este atributo lo seteamos con el metodo estatico setDB()
     // este seteo lo hacemos en el archivo app.php, y asi estara disponible la instancia de mysqli en todo archivo donde importemos app.php

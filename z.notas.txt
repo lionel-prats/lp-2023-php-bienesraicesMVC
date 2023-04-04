@@ -266,17 +266,87 @@ ruta editada -> dest('./public/build/js')
 
 * Creo la carpeta /views
 
+* Creé el repo vvv ...
+
+https://github.com/lionel-prats/lp-2023-php-bienesraicesMVC
+
+... y realizé el primer commit
+
 -----
 
 VIDEO 396
 
-lp-2023-php-bienesraices
+* /public/index.php sera el archivo principal del proyecto y mandara a llamar a los archivos internos de nuestro MVC 
+*** aparentemente va a ser el "route" del proyecto...
 
+REPASO DE LO APRENDIDO
 
+* quise repasar el tema del autoload.
+* para esto repase los videos 354, 355, 356 y 358
+* creé el archivo /public/prueba.autoload.video.396.php para refrescar el autoload de clases
+* ruta de acceso a este archivo desde el navegador vvv
+    http://localhost:3000/prueba.autoload.video.396.php
 
+* tambien creé la clase /models/Prueba.php 
 
+* desde /public/prueba.autoload.video.396.php implemento el autoload que el profesor explica en los videos 354 y 355 (seccion 32)
+* importo las clases ActiveRecord y Prueba y todo funciona correctamente
 
+-----
 
+* desde el video 358, el profesor dice que esto es una forma "artesanal" de hacer el autoload de clases
 
+* el profesor explica que el autoload de clases podemos hacerlo con composer, que sera una opcion mas eficiente que la anterior
 
+* composer -> es una herramienta que nos va a permitir instalar y administrar dependencias en PHP
 
+* consola -> composer init -> para crear el composer.json
+    (repasar el video 358 para ver como se setea por 1era vez este archivo al momento de ser creado)
+
+* luego explica que añadiendo este script al composer.json podemos usar el autoload de clases de composer vvv 
+
+"autoload": {
+    "psr-4": {
+        "App\\": "./classes" 
+    }
+}
+
+* en este script especificamos que el namespace de la carpeta que contendra nuestros modelos es "App\" y que la carpeta se llama "classes"
+
+* luego corre el comando composer update (esto crea la carpeta vendor y el composer.lock)
+
+* entonces el archivo /vendor/autoload.php (hay que requerirlo en los archivos en que querramos usarlo) reemplaza al script "artesanal" anterior pora lo que es el autoload de clases
+
+* cambie los namespaces de las clases por Model 
+
+* edite "autoload" en composer.json vvv
+
+"autoload": {
+    "psr-4": {
+        "Model\\": "./models"
+    }
+}
+
+* corri "composer update" por consola para actualizar /vendor (?), ya que reescribimos el composer.json 
+
+* la carga de clases (modelos) en http://localhost:3000/prueba.autoload.video.396.php funciona correctamente 
+
+-----
+
+VOLVIENDO AL VIDEO 396 
+
+* en composer.json modifica "autoload"
+* cambia el namespace de las clases (modelos) a "Model" y especifica que todos los modelos estan dentro de /models vvv
+"autoload": {
+    "psr-4": {
+        "Model\\": "./models"
+    }
+}
+
+* consola -> composer update para acrualizar /vendor (?), ya que reescribimos el composer.json 
+
+-----
+
+* 3'30" -> /public/index.php va a mandar a llamar internamente todo el codigo que tenemos en /controllers, /models y /views
+* para esto tenemos que crear un archivo llamado "router"
+* en "router" vamos a registrar todas las URL que soporta nuestro proyecto y que controladores y metodos se ejecutaran segun cada URL

@@ -10,7 +10,7 @@ require __DIR__ . '/../vendor/autoload.php';
 // conectarDB() es una funcion declarada en database.php
 $db = conectarDB();
 
-use App\ActiveRecord;
+use Model\ActiveRecord;
 
 // llamamos al metodo estatico setDB() de la clase ActiveRecord, que a su vez almacenara en el atributo estatico $db (de la clase) la instancia de la conexion a la BD
 ActiveRecord::setDB($db);
