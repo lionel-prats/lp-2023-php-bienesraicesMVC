@@ -399,7 +399,60 @@ $_SERVER["PATH_INFO"] = /propiedades/crear
 * $_SERVER["REQUEST_METHOD"] -> nos indica si la peticion es GET o POST
 
 * $router->get("string", "string") 
-* ejecutamos el metodo get(), que va agregando atributos al atributo publico $rutasGET (array asociativo) del objeto en memoria instancia de Router
+* ejecutamos el metodo get(), que va agregando atributos al atributo publico $rutasGET (array asociativo) del objeto en memoria (instancia de Router)
 
-* call_user_func($funcion, 2do parametro) -> es una funcion que nos va a permitir llamar a una funcion cuando no sabemos como se llama esa funcion
+* call_user_func($funcion, 2do parametro) -> es una funcion que nos va a permitir llamar (ejecutar) a una funcion cuando no sabemos como se llama esa funcion
 * el primer argumento que le pasamos debe ser una funcion 
+
+-----
+
+VIDEO 399 
+
+* creo el controlador (archivo) /controllers/PropiedadController.php (va a contener la clase Propiedad)
+
+* 05' aprox -> en /public/index.php vvv 
+    use Controllers/PropiedadController;
+    debuguear(PropiedadController::class); vvv
+    string(31) "Controllers\PropiedadController" 
+    *** PropiedadController::class es una forma de obtener en forma de string el use de de la clase Controllers/PropiedadController (el namespace)
+    *** lo usamos con el $route->get(...), pasandolo como 1er elemento del arreglo que pasamos como segundo argumento al metodo
+    
+* debuguear($router->rutasGET) vvv
+
+array(3) {
+  ["/admin"]=>
+  array(2) {
+    [0]=>
+    string(31) "Controllers\PropiedadController"
+    [1]=>
+    string(5) "index"
+  }
+  ["/propiedades/crear"]=>
+  array(2) {
+    [0]=>
+    string(31) "Controllers\PropiedadController"
+    [1]=>
+    string(6) "create"
+  }
+  ["/propiedades/actualizar"]=>
+  array(2) {
+    [0]=>
+    string(38) "Controllers\PropiedadController::class"
+    [1]=>
+    string(6) "update"
+  }
+}
+
+-----
+
+* entendiendo la funcion call_user_func() vvv
+
+class Persona {
+    public static function saludar() {
+        echo "entendiendo la funcion call_user_func()";
+        exit;
+    }
+}
+call_user_func(["Persona", "saludar"]);
+*** hasta aca, compruebo que es una forma de ejecutar el metodo estatico de una clase
+*** en la practica, el resultado es el mismo que hacer Persona::saludar();
