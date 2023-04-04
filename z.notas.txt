@@ -385,3 +385,21 @@ object(MVC\Router)#2 (0) {
 }
 
 -----
+
+VIDEO 398
+
+trabajamos en /Router.php vvv 
+
+* cuando por GET se requiera una ruta distinta de "/" (por ejemplo "http://localhost:3000/propiedades/crear"), el arreglo global $_SERVER contendra el atributo ["PATH_INFO"] con ese "string" adicional vvv 
+ 
+$_SERVER["PATH_INFO"] = /propiedades/crear
+
+* si el require por URL es a "/" $_SERVER["PATH_INFO"] no existira
+
+* $_SERVER["REQUEST_METHOD"] -> nos indica si la peticion es GET o POST
+
+* $router->get("string", "string") 
+* ejecutamos el metodo get(), que va agregando atributos al atributo publico $rutasGET (array asociativo) del objeto en memoria instancia de Router
+
+* call_user_func($funcion, 2do parametro) -> es una funcion que nos va a permitir llamar a una funcion cuando no sabemos como se llama esa funcion
+* el primer argumento que le pasamos debe ser una funcion 

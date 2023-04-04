@@ -6,4 +6,10 @@ use MVC\Router;
 
 $router = new Router();
 
-debuguear($router);
+$router->get("/", "homeController"); 
+$router->get("/contacto", "contactController");
+$router->get("/nosotros", "aboutController");
+$router->get("/tienda", "marketController");
+// $router->get() -> VIDEO 398
+
+$router->comprobarRutas();
