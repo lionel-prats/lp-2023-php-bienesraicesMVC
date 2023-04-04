@@ -350,3 +350,38 @@ VOLVIENDO AL VIDEO 396
 * 3'30" -> /public/index.php va a mandar a llamar internamente todo el codigo que tenemos en /controllers, /models y /views
 * para esto tenemos que crear un archivo llamado "router"
 * en "router" vamos a registrar todas las URL que soporta nuestro proyecto y que controladores y metodos se ejecutaran segun cada URL
+
+----- 
+
+VIDEO 397 
+
+* en la raiz creamos Router.php (va a ser una clase)
+
+* en composer.json vvv 
+
+"autoload": {
+    "psr-4": {
+        "Model\\": "./models",              -> namespace de los archivos de /models
+        "MVC\\": "./",                      -> namespace de los archivos de /
+        "Controllers\\": "./controllers"    -> namespace de los archivos de /controllers
+    }
+}
+
+"Model", "MVC" & "Controllers" -> namespaces 
+
+"./models", "./", "./controllers" -> ubicaciones relativas de los namespaces dentro del proyecto 
+
+*** como edite el composer.json, a continuacion debo correr el comando "composer update" para que (en este caso) "autoload" funcione correctamente
+
+* namespace MVC; -> asi le damos un namespace a una clase (ejemplo class Router en /Router.php)
+
+* use MVC\Router; -> asi invocamos una clase usando su namespace (ejemplo de invocacion de class Router en /Router.php, en /public/index.php)
+*** para hacer uso de una clase, en todos los casos, debemos hacer un require (en el caso de /public/index.php hay un require a app.php, que a su vez tiene un require a /vendor/autoload.php)
+
+*** recordemos que la instancia de una clase es un objeto vvv
+*** ejemplo -> instancia de la clase Router vvv
+
+object(MVC\Router)#2 (0) {
+}
+
+-----
