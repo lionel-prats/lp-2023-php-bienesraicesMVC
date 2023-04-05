@@ -10,7 +10,7 @@
         }
     ?>
 
-    <a href="/bienesraices/admin/propiedades/crear.php" class="boton boton-verde">Nueva Propiedad</a>
+    <a href="/propiedades/crear" class="boton boton-verde">Nueva Propiedad</a>
     <a href="/bienesraices/admin/vendedores/crear.php" class="boton boton-amarillo">Nuevo Vendedor</a>
     <!-- 
     BOTONES PARA PRUEBAS DE INYECCION SQL (APUNTAN A ARCHIVOS DENTRO DE /admin/propiedades)

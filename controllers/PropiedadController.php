@@ -3,6 +3,7 @@
 namespace Controllers;
 use MVC\Router; 
 use Model\Propiedad; 
+use Model\Vendedor; 
 
 class PropiedadController {
     public static function index(/* Router  */$router) {
@@ -19,7 +20,12 @@ class PropiedadController {
         ]);
     }
     public static function crear(/* Router */ $router) {
-        debuguear($router);
+        $propiedad = new Propiedad();
+        $vendedores = Vendedor::all();
+        $router->render("propiedades/crear", [
+            "propiedad" => $propiedad,
+            "vendedores" => $vendedores,
+        ]);
     }
     public static function actualizar(/* Router */ $router) {
         debuguear($router);
