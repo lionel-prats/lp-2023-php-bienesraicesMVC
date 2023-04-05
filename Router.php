@@ -15,6 +15,12 @@ class Router {
         $this->rutasGET[$url] = $fn;
     } // -> VIDEO 398
 
+    // esta funcion edita el atributo $this->rutasPOST
+    public function post($url, $fn) {
+        $this->rutasPOST[$url] = $fn;
+    } // -> VIDEO 405
+
+    // este metodo manda a llamar al metodo del controlador que corresponda, segun la URL y el metodo por el quye el cliente este haciendo la peticion
     public function comprobarRutas() {
         $urlActual = $_SERVER["PATH_INFO"] ?? "/"; // VIDEO 398
         $metodo = $_SERVER["REQUEST_METHOD"]; // VIDEO 398
@@ -26,6 +32,8 @@ class Router {
                 //[1]=>
                 //string(5) "index"
             //}
+        } else {
+            $fn = $this->rutasPOST[$urlActual] ?? NULL;
         }
         if($fn) {
             call_user_func($fn, $this); // VIDEO 398
