@@ -328,6 +328,8 @@ REPASO DE LO APRENDIDO
 }
 
 * corri "composer update" por consola para actualizar /vendor (?), ya que reescribimos el composer.json 
+*** explicacion profesor asistente (VIDEO 396)
+    "Lo que hace (composer update) es actualizar estos cambios también en tu composer-lock.json ya que muchas veces sueles tener un problema de funcionamiento ya que el composer.json y composer-lock.json no están sincronizados."
 
 * la carga de clases (modelos) en http://localhost:3000/prueba.autoload.video.396.php funciona correctamente 
 
@@ -414,7 +416,7 @@ VIDEO 399
     use Controllers/PropiedadController;
     debuguear(PropiedadController::class); vvv
     string(31) "Controllers\PropiedadController" 
-    *** PropiedadController::class es una forma de obtener en forma de string el use de de la clase Controllers/PropiedadController (el namespace)
+    *** PropiedadController::class es una forma de obtener en forma de string el use de de la clase Controllers/PropiedadController (el namespace) en forma de string, es decir -> "Controllers\PropiedadController"
     *** lo usamos con el $route->get(...), pasandolo como 1er elemento del arreglo que pasamos como segundo argumento al metodo
     
 * debuguear($router->rutasGET) vvv
@@ -466,3 +468,47 @@ metodo render() de Router vvv
 ob_start() 
 include __DIR__ . "/views/$view.php";
 * "esta funcion va a iniciar un almacenamiento en memoria"
+
+-----
+
+VIDEO 406 
+
+en PropiedadController->crear() vvv
+
+busque como obtener la extension de un archivo enviado desde un form con la idea de validarla vvv 
+
+if($_FILES["propiedad"]["tmp_name"]["imagen"]) {
+    $filename = $_FILES["propiedad"]["name"]["imagen"];
+    $extension = pathinfo($filename, PATHINFO_EXTENSION);
+    debuguear($extension);
+}
+
+-----
+
+rand() -> retorna un nro aleatorio de entre 9 y 10 digitos
+md5(uniqid("passwordsecreto", true )) -> retorna un "hash" alfanumerico de 32 caracteres del string que le pasemos 
+
+----- 
+
+$_SERVER["DOCUMENT_ROOT"] -> retorna la ruta desde donde se esta sirviendo el proyecto 
+// en este propyecto -> string(38) "C:\xampp\htdocs\bienesraicesMVC\public"
+// no importa el archivo desde donde lo ejecutemoos, el valor siempre sera el mismo
+
+__DIR__ -> constante que retorna la ruta absoluta del archivo desde donde la estemos requiriendo
+// en/includes/config/database.php -> string(47) "C:\xampp\htdocs\bienesraicesMVC\includes\config"
+// en/controllers/PropiedadController.php -> string(43) "C:\xampp\htdocs\bienesraicesMVC\controllers"
+
+-----
+
+* en funciones.php edite la constante CARPETA_IMAGENES vvv 
+
+viejo valor -> define("CARPETA_IMAGENES", __DIR__ . "/../public/imagenes/"); // string(60) "C:\xampp\htdocs\bienesraicesMVC\includes/../public/imagenes/"
+// con este valor, las imagenes se guardan correctamente en /public/imagenes
+
+nuevo valor -> define("CARPETA_IMAGENES", $_SERVER["DOCUMENT_ROOT"] . "/imagenes/");
+// string(47) "C:\xampp\htdocs\bienesraicesMVC\public/imagenes"
+// con este valor, las imagenes tambien se guardan correctamente en /public/imagenes
+
+-----
+
+<form enctype="multipart/form-data"> -> el atributo enctype en <form> permite enviar archivos correctamente

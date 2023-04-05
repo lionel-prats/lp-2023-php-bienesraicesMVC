@@ -2,7 +2,8 @@
 
 define("TEMPLATES_URL", __DIR__ . "/templates"); // C:\xampp\htdocs\bienesraices\includes/templates
 define("FUNCIONES_URL", __DIR__ . "/funciones.php"); // C:\xampp\htdocs\bienesraices\includes/funciones.php
-define("CARPETA_IMAGENES", __DIR__ . "/../imagenes/");
+
+define("CARPETA_IMAGENES", $_SERVER["DOCUMENT_ROOT"] . "/imagenes/"); // string(48) "C:\xampp\htdocs\bienesraicesMVC\public/imagenes/"
 
 function incluirTemplate (string $nombre, bool $inicio = false) {
     include TEMPLATES_URL . "/$nombre.php";
