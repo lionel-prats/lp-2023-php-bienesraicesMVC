@@ -37,7 +37,13 @@ class Router {
     }
 
     // muestra una vista
-    public function render($view) {
+    public function render($view, $datos = []) {
+
+         // VIDEO 402 -> es una forma de mapear un array creando una variable por cada $key, que mantenga el mismo nombre y el mismo $value
+        foreach($datos as $key=>$value){
+            $$key = $value;
+        }
+
         ob_start(); // -> VIDEO 401 -> almacenamiento en memoria durante un momento
         include __DIR__ . "/views/$view.php";
         $contenido = ob_get_clean(); // limpia el buffer

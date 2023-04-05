@@ -8,7 +8,11 @@ class PropiedadController {
         // $router es la instancia de Router creada en /public/index.php
         // con el prefijo "Router" especifico que el parametro $router tiene que ser instancia de Router
         // este argumento llega desde el metodo comprobarRutas de Router (call_user_func()) (VIDEO 400)
-        $router->render("propiedades/admin");
+        $router->render("propiedades/admin", [
+            "nombre" => "Lionel",
+            "apellido" => "Prats",
+            "edad" => "37"
+        ]);
     }
     public static function crear(/* Router */ $router) {
         debuguear($router);
