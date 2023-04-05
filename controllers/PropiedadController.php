@@ -92,4 +92,18 @@ class PropiedadController {
             "errores" => $errores
         ]);
     }
+    public static function eliminar() {
+        if($_SERVER["REQUEST_METHOD"] === "POST") {
+            $id = $_POST["id"];
+            $id = filter_var($id, FILTER_VALIDATE_INT);
+            // verificamos que haya llegado un int (evitamos inyeccion SQL, ya que se puede modificar el value del input:hidden - chequeado que funciona)
+            if($id){  
+                $tipo = $_POST["tipo"];
+                if(validarTipoContenido($tipo)) {
+                    $propiedad = Propiedad::find($id);
+                    $propiedad->eliminar();
+                }   
+            } 
+        }
+    }
 } // VIDEO 399

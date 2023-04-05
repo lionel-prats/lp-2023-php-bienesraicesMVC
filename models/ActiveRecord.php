@@ -82,7 +82,7 @@ class ActiveRecord {
         if($resultado and static::$tabla === "propiedades"){
             $this->deleteImage($this->imagen);
         } 
-        header("Location: /bienesraices/admin?result=3");
+        header("Location: /admin?result=3");
     }
 
 
