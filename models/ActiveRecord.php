@@ -69,7 +69,7 @@ class ActiveRecord {
         if($resultado){
             // redireccionar al usuario luego de creado el registro 
             // esta funcion sirve para enviar datos en el encabezado de una peticion HTTP
-            header("Location: /bienesraices/admin?result=2");
+            header("Location: /admin?result=2");
         }
     }
 
