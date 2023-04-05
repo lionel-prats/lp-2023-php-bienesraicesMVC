@@ -38,6 +38,12 @@ class Router {
 
     // muestra una vista
     public function render($view) {
+        ob_start(); // -> VIDEO 401 -> almacenamiento en memoria durante un momento
         include __DIR__ . "/views/$view.php";
+        $contenido = ob_get_clean(); // limpia el buffer
+        // hasta aca se guardo en memoria, en $contenido, el archivo del include de arriba, y se limpia la memoria
+
+        include __DIR__ . "/views/layout.php";
+        // se renderiza este archivo, que como adentro tiene un echo $contenido, va a renderizar a su vez, el contenido de $contenido
     }
 } // VIDEO 398

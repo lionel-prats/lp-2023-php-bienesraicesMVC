@@ -456,3 +456,13 @@ class Persona {
 call_user_func(["Persona", "saludar"]);
 *** hasta aca, compruebo que es una forma de ejecutar el metodo estatico de una clase
 *** en la practica, el resultado es el mismo que hacer Persona::saludar();
+
+-----
+
+VIDEO 401
+
+metodo render() de Router vvv 
+
+ob_start() 
+include __DIR__ . "/views/$view.php";
+* "esta funcion va a iniciar un almacenamiento en memoria"
