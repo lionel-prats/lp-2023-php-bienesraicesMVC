@@ -2,16 +2,20 @@
 
 namespace Controllers;
 use MVC\Router; 
+use Model\Propiedad; 
 
 class PropiedadController {
     public static function index(/* Router  */$router) {
         // $router es la instancia de Router creada en /public/index.php
         // con el prefijo "Router" especifico que el parametro $router tiene que ser instancia de Router
         // este argumento llega desde el metodo comprobarRutas de Router (call_user_func()) (VIDEO 400)
+
+        $propiedades = Propiedad::all();
+        $result = null;
+
         $router->render("propiedades/admin", [
-            "nombre" => "Lionel",
-            "apellido" => "Prats",
-            "edad" => "37"
+            "propiedades" => $propiedades,
+            "result" => $result
         ]);
     }
     public static function crear(/* Router */ $router) {

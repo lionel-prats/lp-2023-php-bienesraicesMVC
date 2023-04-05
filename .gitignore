@@ -1,7 +1,7 @@
 /node_modules
 /vendor
 /public/build
-/imagenes
+/public/imagenes
 
 /includes/config/database.php
 package-lock.json
