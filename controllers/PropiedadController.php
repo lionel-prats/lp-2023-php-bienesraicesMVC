@@ -13,12 +13,14 @@ class PropiedadController {
         // este argumento llega desde el metodo comprobarRutas de Router (call_user_func()) (VIDEO 400)
 
         $propiedades = Propiedad::all();
+        $vendedores = Vendedor::all();
 
         // creado/actualizado/eliminado correctamente
         $result = $_GET["result"] ?? null;
 
         $router->render("propiedades/admin", [
             "propiedades" => $propiedades,
+            "vendedores" => $vendedores,
             "result" => $result
         ]);
     }
@@ -55,7 +57,7 @@ class PropiedadController {
     }
     public static function actualizar(/* Router */ $router) {
         
-        $id = validarORedireccionar("/admin");
+        $id = validarORedireccionar("GET", "/admin");
         
         $propiedad = Propiedad::find($id);
         $vendedores = Vendedor::all();
@@ -94,15 +96,16 @@ class PropiedadController {
     }
     public static function eliminar() {
         if($_SERVER["REQUEST_METHOD"] === "POST") {
-            $id = $_POST["id"];
-            $id = filter_var($id, FILTER_VALIDATE_INT);
+            $id = validarORedireccionar("POST", "/admin");
             // verificamos que haya llegado un int (evitamos inyeccion SQL, ya que se puede modificar el value del input:hidden - chequeado que funciona)
             if($id){  
                 $tipo = $_POST["tipo"];
                 if(validarTipoContenido($tipo)) {
                     $propiedad = Propiedad::find($id);
                     $propiedad->eliminar();
-                }   
+                } else {
+                    header("Location: /admin");
+                }     
             } 
         }
     }

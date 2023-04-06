@@ -52,7 +52,7 @@ class ActiveRecord {
     public function actualizar() {
         // array sincronizado con el objeto en memoria (inmueble o vendedor a editar) ya sanitizado y listo para guardar en BD
         $atributos = $this->sanitizarAtributos();
-
+        
         $valores = [];
         foreach($atributos as $key => $value) {
             $valores[] = "$key = '$value'";
@@ -63,7 +63,7 @@ class ActiveRecord {
         $query .= " WHERE id = '"; 
         $query .= self::$db->escape_string($this->id);
         $query .= "' LIMIT 1";
-
+        
         $resultado = self::$db->query($query);
 
         if($resultado){
@@ -194,12 +194,13 @@ class ActiveRecord {
     // sincroniza el objeto en memoria con los cambios realizados por el usuario (actualizacion de inmueble o vendedor)
     // metodo utilizado en actualizar.php: va a reescribir el objeto en memoria (inmmueble o vendedor a actualizar, return de ::find()), con los datos que vengan del formulario de edicion de un inmueble
     public function sincronizar( $args = [] ) {
-        // con $this referenciamos (hacemos referencia, invocamos) a la instancia creada en actualizar.php (inmueble a editar)
+        // con $this referenciamos (hacemos referencia, invocamos) a la instancia creada en actualizar.php (inmueble o vendedor a editar)
         foreach($args as $key => $value) {
             if(property_exists($this, $key)/*  and !empty($value) */)
                 $this->$key = $value;
         }
-        //debuguear($this);
-        return "mocos";
+        // este metodo no retorna nada 
+        // este metodo reescribe el objeto de Propiedad o Vendedor en memoria, cuando un usuario quiere hacer hacer una actualizacion y luego de que envio el formulario de actualizar
+        // hasta este punto los datos reescritos no fueron validados, por lo cual luego de sincronizar hay que ejecutar el metodo validar()
     }
 }

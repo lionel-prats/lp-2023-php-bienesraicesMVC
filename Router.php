@@ -39,7 +39,7 @@ class Router {
             call_user_func($fn, $this); // VIDEO 398
             // esta funcion manda ejecutar el metodo de un controlador, especificado en $fn
             // $fn es un arreglo con el namespace de un controlador y un metodo interno de ese controlador 
-            // a su vez, le paso a este metodo la instancia de Router creada en /public/index.php como 2do argumento
+            // a su vez, le paso a este metodo la instancia de Router creada en /public/index.php como 2do argumento, para que, por ejemplo, desde el controlador se pueda ejecutar el metodo render() de esta clase para renderizar una vista
         } else {
             debuguear("404 NOT FOUND");
         }

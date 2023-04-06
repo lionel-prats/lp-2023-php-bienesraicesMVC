@@ -56,8 +56,12 @@ function mostrarNotificacion($codigo) {
     return $mensaje;
 }
 
-function validarORedireccionar(string $url) {
-    $id = $_GET["id"];
+function validarORedireccionar(string $method, string $url) {
+    if($method === "GET") {
+        $id = $_GET["id"];
+    } else {
+        $id = $_POST["id"];
+    }
     $id =  filter_var($id, FILTER_VALIDATE_INT); 
     if(!$id)
         header("Location: $url");
