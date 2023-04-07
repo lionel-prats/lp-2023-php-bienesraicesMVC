@@ -18,6 +18,6 @@
             </li>
         </ul>
         <p><?php echo $propiedad->descripcion ?></p>
-        <a href="/propiedades" class="boton boton-amarillo">Ver todas</a>
     </div>
+    <a href="/propiedades" class="boton boton-amarillo">Ver todas</a>
 </main>

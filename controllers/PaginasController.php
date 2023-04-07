@@ -33,10 +33,10 @@ class PaginasController {
       ]);
    }
    public static function blog($router) {
-      echo "blog de la aplicacion";
+      $router->render("/paginas/blog");
    }
    public static function entrada($router) {
-      echo "entrada de la aplicacion";
+      $router->render("/paginas/entrada");
    }
    public static function contacto($router) {
       echo "contacto de la aplicacion";
