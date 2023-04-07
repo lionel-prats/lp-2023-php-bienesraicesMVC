@@ -4,6 +4,7 @@ namespace Controllers;
 
 //use MVC\Router;
 use Model\Propiedad;
+use PHPMailer\PHPMailer\PHPMailer;
 
 class PaginasController {
    public static function index($router) {
@@ -40,7 +41,41 @@ class PaginasController {
    }
    public static function contacto($router) {
       if($_SERVER["REQUEST_METHOD"] === "POST") {
-         debuguear($_POST);
+
+         // se puede acceder a una explicacion mas detallada de toda esta configuracion en z.notas.txt -> VIDEO 425 
+         
+         $mail = new PHPMailer(true);
+
+         $mail->isSMTP(); // para decirle que vamos a usar SMTP para envio de correos 
+         $mail->Host = 'sandbox.smtp.mailtrap.io'; // especificamos el dominio   
+         $mail->SMTPAuth = true; // decimos que nos vamos a autenticar
+         $mail->Username = 'a65ab5083ded37'; // usuario 
+         $mail->Password = 'e3ffbe3f60333a'; // password 
+         $mail->SMTPSecure = "tls"; 
+         $mail->Port = 2525; // el puerto sobre el cual se va a conectar 
+         
+         // Configurar el contenido del email
+         // Destinatario y asunto 
+         $mail->setFrom('danimerlo@yahoo.com.ar');
+         $mail->addAddress('bsastop@gmail.com', 'BsAs Top');
+         $mail->Subject = 'Ref. Dev Python Jr.';
+
+         // Habilitar HTML
+         $mail->isHTML(true);     
+         $mail->CharSet = "UTF-8";
+
+         // Definir el contenido 
+         $contenido = "<h1><p>Adjunto <span style=\"color:green;\">mi CV</span>. Saludos!</p></h1>";
+         $mail->Body = $contenido;
+         $mail->AltBody = "Adjunto mi CV. Saludos!";
+
+         // Enviar el email 
+         if($mail->send()) {
+         // el metodo send() nos retorna TRUE si se envió el mail y FALSE si no se envió
+            echo "Mensaje Enviado Correctamente";
+         } else {
+            echo "El Mensaje No Se Pudo Enviar";
+         }
       }
       $router->render("/paginas/contacto");
    }

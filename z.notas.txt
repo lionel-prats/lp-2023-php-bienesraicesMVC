@@ -539,3 +539,96 @@ instale la libreria phpmailer  -> composer require phpmailer/phpmailer -> se ins
     "intervention/image": "^2.7",
     "phpmailer/phpmailer": "^6.8"
 },
+
+-----
+
+VIDEO 425 
+
+en PaginasController::contacto() vvv
+
+* la libreria PHPMailer esta orientada a objectos, por eso tenemos que crear una nueva instancia vvv 
+
+    $mail = new PHPMailer();
+
+* "SMTP es el protocolo que se utiliza para el envio de emails.
+   Así como HTTP es el protocolo para visitar sitios web (por ejemplo http://www.google.com)" 
+
+* mailtrap nos da la configuracion de SMTP vvv
+
+apartado Email Testing/Inboxes, en Integrations ->"Laravel 7+"
+
+MAIL_MAILER=smtp
+MAIL_HOST=sandbox.smtp.mailtrap.io
+MAIL_PORT=2525
+MAIL_USERNAME=a65ab5083ded37
+MAIL_PASSWORD=e3ffbe3f60333a
+MAIL_ENCRYPTION=tls
+
+* "el contenido de un email se conforma por 2 partes.
+  La parte de arriba, a donde lo vas a enviar, cual es el asunto"
+  La otra parte es el cuerpo del email"
+
+----- 
+
+*** VIDEO 225 -> version final PaginasController::contacto() (explicado didacticamente) vvv
+
+public static function contacto($router) {
+    if($_SERVER["REQUEST_METHOD"] === "POST") {
+        
+        // la configuracion aqui dentro empieza en el VIDEO 425
+        // Crear una instancia de PHPMailer
+        $mail = new PHPMailer(true);
+
+        // Configurar SMTP (SMTP es el protocolo que se utiliza para el envio de emails)
+        // APRENDIZAJE: me di cuenta que se trata de ejecutar un metodo publico de la clase ( isSMTP() ) y reescribir varios atributos publicos de la clase vvv 
+        /* 
+        - mailtrap nos da la configuracion de SMTP vvv
+        - apartado Email Testing/Inboxes, en Integrations ->"Laravel 7+"
+        - MAIL_MAILER=smtp
+        - MAIL_HOST=sandbox.smtp.mailtrap.io
+        - MAIL_PORT=2525
+        - MAIL_USERNAME=a65ab5083ded37
+        - MAIL_PASSWORD=e3ffbe3f60333a
+        - MAIL_ENCRYPTION=tls
+        */
+        $mail->isSMTP(); // para decirle que vamos a usar SMTP para envio de correos 
+        $mail->Host = 'sandbox.smtp.mailtrap.io'; // especificamos el dominio   
+        $mail->SMTPAuth = true; // decimos que nos vamos a autenticar
+        $mail->Username = 'a65ab5083ded37'; // usuario 
+        $mail->Password = 'e3ffbe3f60333a'; // password 
+        
+        $mail->SMTPSecure = "tls"; 
+        // "tls" para que sean emails no encriptados pero vayan por un tunel seguro
+        // tls = transport layer security
+        // ssl = antes se usaba secure socket layer, pero ya no se utiliza, ahora se usa "tls" que es una forma mas segura (evita que 3eros puedan interceptar emails) 
+        // ssl es el valor que sugiere la documentacion oficial de PHPMailer -> $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;  
+        // mailtrap nos proporciona "tls"
+
+        $mail->Port = 2525; // el puerto sobre el cual se va a conectar 
+        
+        // Configurar el contenido del email
+
+        // Destinatario y asunto 
+        $mail->setFrom('danimerlo@yahoo.com.ar');
+        $mail->addAddress('bsastop@gmail.com', 'BsAs Top');
+        $mail->Subject = 'Ref. Dev Python Jr.';
+
+        // Habilitar HTML
+        $mail->isHTML(true);     
+        $mail->CharSet = "UTF-8";
+
+        // Definir el contenido 
+        $contenido = "<h1><p>Adjunto <span style=\"color:red;\">mi CV</span>. Saludos!</p></h1>";
+        $mail->Body = $contenido;
+        $mail->AltBody = "Adjunto mi CV. Saludos!";
+
+        // Enviar el email 
+        if($mail->send()) {
+        // el metodo send() nos retorna TRUE si se envió el mail y FALSE si no se envió
+        echo "Mensaje Enviado Correctamente";
+        } else {
+        echo "El Mensaje No Se Pudo Enviar";
+        }
+    }
+    $router->render("/paginas/contacto");
+}
