@@ -39,6 +39,9 @@ class PaginasController {
       $router->render("/paginas/entrada");
    }
    public static function contacto($router) {
-      echo "contacto de la aplicacion";
+      if($_SERVER["REQUEST_METHOD"] === "POST") {
+         debuguear($_POST);
+      }
+      $router->render("/paginas/contacto");
    }
 }
