@@ -512,3 +512,30 @@ nuevo valor -> define("CARPETA_IMAGENES", $_SERVER["DOCUMENT_ROOT"] . "/imagenes
 -----
 
 <form enctype="multipart/form-data"> -> el atributo enctype en <form> permite enviar archivos correctamente
+
+-----
+
+VIDEO 424 
+
+Vamos a usar la libreria de php phpmailer para poder enviar mails desde el formulario de contacto 
+
+repositorio de librerias de composer -> https://packagist.org/
+
+buscamos "phpmailer" -> https://packagist.org/packages/phpmailer/phpmailer
+
+"No por haber instalado phpmailer significa que los mails van a salir. Aun asi necesitamos un servidor de envio de emails, no tenemos uno configurado.
+Ya la mayoria de servidores que contrates, cualquiera que sea de paga, va a tener un servicio de envio de emails.
+Pero en un servidor local, en localhost, tienes que configurarlo, es una tarea que toma demasiado tiempo, pero para hacer mas rapido podemos usar un servicio como mailtrap, y este nos va a permitir conectar el forumulario de contacto del proyecto y va a enviar los emails que los usuarios vayan llenando."
+
+En mailtrap (https://mailtrap.io/)
+* cree una cuenta en mailtrap
+* en el apartado Email Testing/Inboxes, en Integrations, seleccione "Laravel 7+"
+
+En el proyecto, en la consola 
+instale la libreria phpmailer  -> composer require phpmailer/phpmailer -> se instalo la version 6.8 vvv
+
+*** composer.json vvv
+"require": {
+    "intervention/image": "^2.7",
+    "phpmailer/phpmailer": "^6.8"
+},
