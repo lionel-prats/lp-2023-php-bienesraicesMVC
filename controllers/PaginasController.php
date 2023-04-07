@@ -24,7 +24,13 @@ class PaginasController {
       ]);
    }
    public static function propiedad($router) {
-      echo "propiedad de la aplicacion";
+      $id = validarORedireccionar("GET", "/");
+      $propiedad = Propiedad::find($id);
+      if(is_null($propiedad))
+         header("Location: /");
+      $router->render("/paginas/propiedad", [
+         "propiedad" => $propiedad,
+      ]);
    }
    public static function blog($router) {
       echo "blog de la aplicacion";

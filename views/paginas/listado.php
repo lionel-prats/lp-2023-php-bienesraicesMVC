@@ -1,16 +1,3 @@
-<?php 
-    // __DIR__ === C:\xampp\htdocs\bienesraices\includes\templates
-    // "los require son relativos a los documentos que los esta mandando llamar (VIDEO 331)"
-    /*
-    use App\Propiedad;
-    
-    if($_SERVER["SCRIPT_NAME"] === "/bienesraices/index.php") {
-        $propiedades = Propiedad::get(3);
-    } else {
-        $propiedades = Propiedad::all();
-    }
-    */
-?>
 <div class="contenedor-anuncios"> 
     <?php foreach($propiedades as $propiedad): ?> 
         <div class="anuncio">

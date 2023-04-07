@@ -7,7 +7,7 @@
     <h2>Casas y departamentos en Venta</h2>
     <?php include 'listado.php'; ?>
     <div class="alinear-derecha">
-        <a href="anuncios.html" class="boton-verde">Ver todas</a>
+        <a href="/propiedades" class="boton-verde">Ver todas</a>
     </div>
 </section>
 
