@@ -2,7 +2,7 @@
 
 namespace Controllers;
 
-use MVC\Router;
+//use MVC\Router;
 use Model\Propiedad;
 
 class PaginasController {
@@ -18,9 +18,12 @@ class PaginasController {
       $router->render("/paginas/nosotros");
    }
    public static function propiedades($router) {
-      echo "propiedades de la aplicacion";
+      $propiedades = Propiedad::all();
+      $router->render("/paginas/propiedades", [
+         "propiedades" => $propiedades,
+      ]);
    }
-   public static function propiedad() {
+   public static function propiedad($router) {
       echo "propiedad de la aplicacion";
    }
    public static function blog($router) {
