@@ -14,22 +14,22 @@ class PaginasController {
          "inicio" => $inicio
       ]);
    }
-   public static function nosotros() {
-      echo "nosotros de la aplicacion";
+   public static function nosotros($router) {
+      $router->render("/paginas/nosotros");
    }
-   public static function propiedades() {
+   public static function propiedades($router) {
       echo "propiedades de la aplicacion";
    }
    public static function propiedad() {
       echo "propiedad de la aplicacion";
    }
-   public static function blog() {
+   public static function blog($router) {
       echo "blog de la aplicacion";
    }
-   public static function entrada() {
+   public static function entrada($router) {
       echo "entrada de la aplicacion";
    }
-   public static function contacto() {
+   public static function contacto($router) {
       echo "contacto de la aplicacion";
    }
 }
