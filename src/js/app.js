@@ -7,7 +7,6 @@ document.addEventListener("DOMContentLoaded", () => {
 // modo oscuro del sitio
 function darkMode() {
 
-
     // detecta si en las preferencias de sistema del cliente esta activado el modo oscuro, y en ese caso activa el modo oscuro por defecto
     // tambien reacciona en tiempo real si el usuario cambia las preferencias del sistema
     /* const prefiereDarkMode = window.matchMedia('(prefers-color-scheme: dark)');
@@ -42,6 +41,12 @@ function darkMode() {
 function eventListeners(){
     const mobileMenu = document.querySelector(".mobile-menu");
     mobileMenu.addEventListener("click", navegacionResponsive);
+    
+    // mostrar campos condicionales en el form de contacto
+    const metodoContacto = document.querySelectorAll('input[name="contacto[contacto]"]');
+    metodoContacto.forEach(input => {
+        input.addEventListener("click", mostrarMetodosContacto);
+    });
 }
 
 function navegacionResponsive() {
@@ -49,3 +54,6 @@ function navegacionResponsive() {
     navegacion.classList.toggle("mostrar");
 }
 
+function mostrarMetodosContacto() {
+    console.log("seleccionando");
+}

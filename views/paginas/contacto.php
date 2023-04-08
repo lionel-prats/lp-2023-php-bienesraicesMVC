@@ -41,7 +41,7 @@
         </fieldset>
         
         <fieldset>
-            <legend>Información sobre la propiedad</legend>
+            <legend>Información de contacto</legend>
             <p>Como desea ser contactado</p>
             <div class="forma-contacto">
                 <label for="contactar-telefono">Teléfono</label>
