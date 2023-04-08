@@ -577,7 +577,7 @@ public static function contacto($router) {
         
         // la configuracion aqui dentro empieza en el VIDEO 425
         // Crear una instancia de PHPMailer
-        $mail = new PHPMailer(true);
+        $mail = new PHPMailer();
 
         // Configurar SMTP (SMTP es el protocolo que se utiliza para el envio de emails)
         // APRENDIZAJE: me di cuenta que se trata de ejecutar un metodo publico de la clase ( isSMTP() ) y reescribir varios atributos publicos de la clase vvv 

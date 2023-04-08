@@ -9,7 +9,7 @@
 
     <h2>Llene el formulario de Contacto</h2>
 
-    <form class="formulario" method="POST" action="/contacto">
+    <form class="formulario" method="POST" action="/contacto" novalidate>
         <fieldset>
             <legend>Información Personal</legend>
 
