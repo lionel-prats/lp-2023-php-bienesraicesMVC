@@ -673,3 +673,20 @@ stdClass Object
 -----
 
 mail() -> funcion nativa de PHP para enviar mails (INVESTIGAR)
+
+* prueba de como mandar un mail a un correo real desde mi aplicacion, en la ruta /contacto2
+* tutorial SoyDalto -> https://www.youtube.com/watch?v=TtKPhnJDIL0
+
+phpversion() -> funcion nativa de PHP que retorna la version de PHP instalada en el servidor donde esta alojado el proyecto (en mi computadora si estoy trabajando en local)
+
+echo "\r\n" -> genera saltos de linea ("\r" y "\n" aparentemente funciona igual (VERIFICAR))
+
+* forma de omitir errores PHP por pantalla vvv 
+
+debuguear($variableInexistente); // $variableInexistente no existe vvv
+    Warning: Undefined variable $variableInexistente in C:\xampp\htdocs\bienesraicesMVC\controllers\PaginasController.php on line 163
+
+OMITIR ERROR vvv 
+@debuguear($variableInexistente); // $variableInexistente no existe vvv
+    *** no se renderiza el error
+

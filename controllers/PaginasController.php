@@ -45,6 +45,7 @@ class PaginasController {
 
       $response = new FormValidate(); // instancia de FormValidate
       $errors = []; // GET -> array para los mensajes de error de la vista 
+      $mensaje = null;
 
       if($_SERVER["REQUEST_METHOD"] === "POST") {
 
@@ -86,8 +87,6 @@ class PaginasController {
          // fin array $validations
 
          $errors = $response->validate($validations);
-
-         $mensaje = null;
 
          if(empty($errors)) {
             
@@ -156,5 +155,32 @@ class PaginasController {
          "response" => $response,
          "mensaje" => $mensaje,
       ]);
+   }
+   public static function contacto2($router) {
+
+      if($_SERVER["REQUEST_METHOD"] === "POST") {
+         if(!empty($_POST["name"]) && !empty($_POST["email"]) && !empty($_POST["asunto"]) && !empty($_POST["msg"])) {
+            $name = $_POST["name"];
+            $email = $_POST["email"];
+            $asunto = $_POST["asunto"];
+            $msg = $_POST["msg"];
+
+         
+            $header = "From: noreply@example.com" . "\r\n";
+            $header .= "Reply-To: noreply@example.com" . "\r\n";
+            $header .= "X-mailer: PHP/" . phpversion();
+
+            $mail = /* @ */mail($email, $asunto, $msg, $header);
+            // el arroba delante de una funcion evita que se muestren los errores de PHP por pantalla
+
+            if($mail) {
+               echo "Enviado exitosamente";
+            } 
+
+         } else {
+            debuguear("faltan completar campos");
+         }
+      }
+      $router->render("/paginas/contacto2", []);
    }
 }
