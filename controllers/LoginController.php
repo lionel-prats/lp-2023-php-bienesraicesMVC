@@ -18,7 +18,19 @@ class LoginController {
             $errors = $auth->validar();
 
             if(empty($errors)) {
-                debuguear($auth);
+                // verificar si el email existe
+
+                $resultado = $auth->existeUsuario();
+                // $resultado === null si el usuario no existe
+                // $resultado === mysql_result Object si existe
+
+                if(!$resultado) {
+                    $errors = Admin::getErrores();
+                } else {
+                    // verificar si el password existe 
+
+                    // autenticar al usuario
+                }
             }
         }
 

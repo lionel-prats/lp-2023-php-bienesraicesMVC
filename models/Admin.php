@@ -29,4 +29,30 @@ class Admin extends ActiveRecord {
         }
         return self::$errores;
     }
+
+    public function existeUsuario() {
+        $query = "SELECT * FROM " . self::$tabla . " WHERE email = '$this->email' LIMIT 1";
+
+        $resultado = self::$db->query($query); 
+        // el metodo query() retorna un objeto mysql_result
+        /*  
+        mysqli_result Object
+        (
+            [current_field] => 0
+            [field_count] => 3
+            [lengths] => 
+            [num_rows] => 1 // cantidad de registros devueltos por la consulta a la DB
+            [type] => 0
+        )
+        */
+        if(!$resultado->num_rows) {
+            self::$errores[] = "El usuario no existe";
+            return; 
+            // si no existe usuario en la tabla usuarios con el mail ingresado por el cliente ($resultado->num_rows === 0) ...
+            // esta funcion agregara un mensaje a $errores y no retornara nada (VIDEO 433)
+        }
+        return $resultado;
+        // si existe usuario en la tabla usuarios con el mail ingresado por el cliente ($resultado->num_rows > 0) ...
+        // el if(){} de arriba no se ejecutara y esta funcion retornara el objeto que retorna el metodo query() (VIDEO 433)
+    }
 }
