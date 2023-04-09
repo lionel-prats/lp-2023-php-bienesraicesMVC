@@ -527,6 +527,8 @@ buscamos "phpmailer" -> https://packagist.org/packages/phpmailer/phpmailer
 Ya la mayoria de servidores que contrates, cualquiera que sea de paga, va a tener un servicio de envio de emails.
 Pero en un servidor local, en localhost, tienes que configurarlo, es una tarea que toma demasiado tiempo, pero para hacer mas rapido podemos usar un servicio como mailtrap, y este nos va a permitir conectar el forumulario de contacto del proyecto y va a enviar los emails que los usuarios vayan llenando."
 
+*** APARENTEMENTE Mailtrap es un servidr de mails, y ofrece un servicio gratuito de 100 mails por mes, que sirve para hacer pruebas en desarrollo 
+
 En mailtrap (https://mailtrap.io/)
 * cree una cuenta en mailtrap
 * en el apartado Email Testing/Inboxes, en Integrations, seleccione "Laravel 7+"
@@ -546,16 +548,16 @@ VIDEO 425
 
 en PaginasController::contacto() vvv
 
-* la libreria PHPMailer esta orientada a objectos, por eso tenemos que crear una nueva instancia vvv 
+* la libreria PHPMailer esta orientada a objetos, por eso tenemos que crear una nueva instancia vvv 
 
     $mail = new PHPMailer();
 
 * "SMTP es el protocolo que se utiliza para el envio de emails.
-   Así como HTTP es el protocolo para visitar sitios web (por ejemplo http://www.google.com)" 
+   Así como HTTP es un protocolo para visitar sitios web (por ejemplo http://www.google.com)" 
 
 * mailtrap nos da la configuracion de SMTP vvv
 
-apartado Email Testing/Inboxes, en Integrations ->"Laravel 7+"
+apartado Email Testing/Inboxes/Actions/Settings (ruedita), en Integrations -> "Laravel 7+" vvv
 
 MAIL_MAILER=smtp
 MAIL_HOST=sandbox.smtp.mailtrap.io
@@ -580,7 +582,7 @@ public static function contacto($router) {
         $mail = new PHPMailer();
 
         // Configurar SMTP (SMTP es el protocolo que se utiliza para el envio de emails)
-        // APRENDIZAJE: me di cuenta que se trata de ejecutar un metodo publico de la clase ( isSMTP() ) y reescribir varios atributos publicos de la clase vvv 
+        // APRENDIZAJE: me di cuenta que esta configuracion se trata de ejecutar un metodo publico de la clase ( isSMTP() ) y reescribir varios atributos publicos de la clase vvv 
         /* 
         - mailtrap nos da la configuracion de SMTP vvv
         - apartado Email Testing/Inboxes, en Integrations ->"Laravel 7+"
@@ -624,7 +626,7 @@ public static function contacto($router) {
 
         // Enviar el email 
         if($mail->send()) {
-        // el metodo send() nos retorna TRUE si se envió el mail y FALSE si no se envió
+        // el metodo send() nos retorna TRUE si el formulario se envió correctamente al servidor de mails y FALSE si no se envió
         echo "Mensaje Enviado Correctamente";
         } else {
         echo "El Mensaje No Se Pudo Enviar";
@@ -632,6 +634,8 @@ public static function contacto($router) {
     }
     $router->render("/paginas/contacto");
 }
+
+*** En resumen, usamos PHPMailer como dependencia o libreria para enviar mensaje a un servidor de mails desde nuestro proyecto, y Mailtrap como servidor de mails gratuito para recibir esos mensajes 
 
 ----- 
 
@@ -642,3 +646,30 @@ en /src/js/app.js vvv
 const metodoContacto = document.querySelectorAll('input[name="contacto[contacto]"]');
 *** selector de atributo js 
 *** forma de capturar un elemento html <input> con atributo name="contacto[contacto]"
+
+-----
+
+VIDEO 429 
+
+PaginasController.php -> forma de formatear una fecha vvv 
+
+$date_formated = date('d-m-Y', strtotime("2021-11-15")); === "15-11-2021"
+
+-----
+
+forma de crear un objeto en PHP (instancia de stdClass) vvv 
+
+$objeto_stdClass = new stdClass();
+$objeto_stdClass->nombre = "Lionel";
+$objeto_stdClass->apellido = "Prats";
+debuguear($objeto_stdClass); vvv
+
+stdClass Object
+(
+    [nombre] => Lionel
+    [apellido] => Prats
+)
+
+-----
+
+mail() -> funcion nativa de PHP para enviar mails (INVESTIGAR)

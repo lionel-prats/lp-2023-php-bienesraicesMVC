@@ -2,6 +2,7 @@
 document.addEventListener("DOMContentLoaded", () => {
     eventListeners();
     darkMode();
+    showWholeContactForm();
 })
 
 // modo oscuro del sitio
@@ -42,7 +43,7 @@ function eventListeners(){
     const mobileMenu = document.querySelector(".mobile-menu");
     mobileMenu.addEventListener("click", navegacionResponsive);
     
-    // mostrar campos condicionales en el form de contacto
+    // mostrar campos condicionales en el form de contacto (VIDEO 427)
     const metodoContacto = document.querySelectorAll('input[name="contacto[contacto]"]');
     metodoContacto.forEach(input => {
         input.addEventListener("click", mostrarMetodosContacto);
@@ -54,7 +55,7 @@ function navegacionResponsive() {
     navegacion.classList.toggle("mostrar");
 }
 
-// inyectar codigo HTML desde JS - version Lio
+// VIDOE 428 - inyectar codigo HTML desde JS - version Lio
 /*
 function mostrarMetodosContacto(e) {
 
@@ -133,7 +134,8 @@ function mostrarMetodosContacto(e) {
 }
 */
 
-// inyectar codigo HTML desde JS - version Profesor
+// VIDEO 428 - inyectar codigo HTML desde JS - version Profesor
+/*
 function mostrarMetodosContacto(e) {
     const contactoDiv = document.querySelector("#contacto");
     if(e.target.value === "telefono") {
@@ -154,23 +156,29 @@ function mostrarMetodosContacto(e) {
     } 
     contactoDiv.style.marginTop = "2rem";
 }
-
-
-
-
-
-
-/* 
-<label for="telefono">Teléfono</label>
-<input type="number" placeholder="Tu Teléfono" id="telefono" name="contacto[telefono]">
-
-<label for="email">E-mail</label>
-<input type="email" placeholder="Tu email" id="email" name="contacto[email]" required>
-
-<label for="fecha">Fecha</label>
-<input type="date" id="fecha" name="contacto[fecha]">
-
-<label for="hora">Hora</label>
-<input type="time" id="hora" min="09:00" max="18:00" name="contacto[hora]">
-
 */
+
+// VIDEO 428 - solucion alternativa a campos condicionales en contacto - Lío
+function mostrarMetodosContacto(e) {
+    const contactoCondicional = document.querySelectorAll(".contacto-condicional");
+    if(e.target.value === "telefono") {
+        contactoCondicional[0].classList.add("contacto-condicional-mostrar");
+        contactoCondicional[1].classList.remove("contacto-condicional-mostrar");
+    } else if (e.target.value === "email") {
+        contactoCondicional[0].classList.remove("contacto-condicional-mostrar");
+        contactoCondicional[1].classList.add("contacto-condicional-mostrar");
+    } 
+}
+
+// funcion creada por Lío para agregar una funcionalidad en la renderizacion de /paginas/contacto.php 
+// esta funcion se ejecutara siempre que se cargue /paginas/contacto.php 
+// en el documento, con PHP le asigno ocasionalmente las clases .phone-value e .email-value a dos <div>s que contienen <label>s e <input>s que deben renderizarze en ciertas circunstancias
+// este "switch" o validacion lo ejecuta esta funcion 
+function showWholeContactForm() {
+    const contactoCondicional = document.querySelectorAll(".contacto-condicional");
+    if(contactoCondicional[0].classList.contains("phone-value")) {
+        contactoCondicional[0].classList.add("contacto-condicional-mostrar");
+    } else if(contactoCondicional[1].classList.contains("email-value")) {
+        contactoCondicional[1].classList.add("contacto-condicional-mostrar");
+    }
+}

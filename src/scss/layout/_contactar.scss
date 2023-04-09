@@ -24,3 +24,22 @@
     }
 }
 
+.contacto-condicional {
+    display: none;
+}
+.contacto-condicional-mostrar {
+    display: block;
+    margin-top: 2rem;
+}
+
+.formulario .err-msg {
+    position: relative;
+    top: -2rem;
+    padding-left: .5rem;
+    font-weight: $bold;
+    color: red;
+}
+.formulario .err-msg.err-msg--contact {
+    top: -.5rem;
+    padding-left: 0;
+}
