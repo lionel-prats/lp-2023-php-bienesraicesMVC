@@ -9,16 +9,22 @@ class LoginController {
     public static function login(/* Router */ $router) {
         // $router es instancia de Router, creada en /public/index.php, y enviada a este controlador desde la funcion nativa de PHP call_user_func(), ejecutada dentro del metodo comprobarRutas(), tambien de la clase Router), gracias a lo cual podemos acceder al metodo render() de Router, que permite renderizar arcivos dentro de /views (VIDEO 430)
 
-        $errors = [];
-        $email = "";
+        $errors = Admin::getErrores();
+        $auth = new Admin();
 
         if($_SERVER["REQUEST_METHOD"] === "POST") {
-            debuguear("autenticando usuario");
+
+            $auth = new Admin($_POST);
+            $errors = $auth->validar();
+
+            if(empty($errors)) {
+                debuguear($auth);
+            }
         }
 
         $router->render("auth/login", [
             "errors" => $errors,
-            "email" => $email
+            "email" => $auth->email
         ]);
     }
     
