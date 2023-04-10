@@ -636,6 +636,7 @@ public static function contacto($router) {
 }
 
 *** En resumen, usamos PHPMailer como dependencia o libreria para enviar mensaje a un servidor de mails desde nuestro proyecto, y Mailtrap como servidor de mails gratuito para recibir esos mensajes 
+*** tutorial para configurar PhpMailer y enviar correo desde localhost -> https://www.youtube.com/watch?v=RSlE38lvlys
 
 ----- 
 

@@ -38,7 +38,10 @@
                         <a href="/blog">Blog</a>
                         <a href="/contacto">Contacto</a>
                         <?php if($auth) { ?>
-                            <a href="/logout">Cerrar Sesión</a>
+                            <form action="/logout" method="POST">
+                                <input type="submit" value="Cerrar sesión" class="btn-logout">
+                            </form>
+                            <!-- <a href="/logout">Cerrar Sesión</a> -->
                         <?php } ?>
                     </nav>
                 </div>

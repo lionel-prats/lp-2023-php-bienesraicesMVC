@@ -20,9 +20,31 @@ class Router {
         $this->rutasPOST[$url] = $fn;
     } // -> VIDEO 405
 
+    // este metodo se va a ejecutar cada vez que un cliente haga una peticion por GET o POST
     // este metodo manda a llamar al metodo del controlador que corresponda, segun la URL y el metodo por el quye el cliente este haciendo la peticion
     public function comprobarRutas() {
+
+        session_start();
+        $auth = $_SESSION["login"] ?? null;
+        // arreglo de rutas protegidas 
+        $rutas_protegidas = [
+            "/admin",
+            "/propiedades/crear",
+            "/propiedades/actualizar",
+            "/propiedades/eliminar",
+            "/vendedores/crear",
+            "/vendedores/actualizar",
+            "/vendedores/eliminar",
+            "/logout"
+        ];
+
+        $only_guest_paths = [
+            "/login",
+        ];
+
         $urlActual = $_SERVER["PATH_INFO"] ?? "/"; // VIDEO 398
+        // con cada peticion GET o POST, en $urlActual se guardara el path en la URL
+
         $metodo = $_SERVER["REQUEST_METHOD"]; // VIDEO 398
         if($metodo === "GET") {
             $fn = $this->rutasGET[$urlActual] ?? NULL;
@@ -35,6 +57,17 @@ class Router {
         } else {
             $fn = $this->rutasPOST[$urlActual] ?? NULL;
         }
+
+        // redirigir al usuario si quiere acceder a una ruta protegida sin estar autenticado
+        if(in_array($urlActual, $rutas_protegidas) && !$auth) {
+           header("Location: /");
+        }
+        
+        // redirigir al usuario autenticado si quiere acceder a rutas solo para visitantes
+        if(in_array($urlActual, $only_guest_paths) && $auth) {
+           header("Location: /admin");
+        }
+
         if($fn) {
             call_user_func($fn, $this); // VIDEO 398
             // esta funcion manda ejecutar el metodo de un controlador, especificado en $fn

@@ -50,7 +50,8 @@
         visibility: visible;
         opacity: 1;     
     };
-    a {
+    a,
+    .btn-logout {
         display: block;
         font-size: 2.2rem;
         text-align: center;
@@ -61,6 +62,13 @@
         &:hover {
             color: $verde;
         }
+    }
+    form {
+        display: flex;
+    }
+    .btn-logout {
+        border: none;
+        background-color: transparent;
     }
 
     

@@ -10,9 +10,11 @@ use Controllers\PropiedadController;
 
 $router = new Router();
 
-$router->get("/admin", [PropiedadController::class, "index"]); 
 
 // $router->get() -> VIDEO 398
+
+// zona privada - solo usuarios autenticados - panel de admin
+$router->get("/admin", [PropiedadController::class, "index"]); 
 
 // zona privada - solo usuarios autenticados - CRUD propiedades
 $router->get("/propiedades/crear", [PropiedadController::class, "crear"]);
@@ -43,8 +45,15 @@ $router->post("/contacto2", [PaginasController::class, "contacto2"]);
 // login y autenticacion
 $router->get("/login", [LoginController::class, "login"]);
 $router->post("/login", [LoginController::class, "login"]);
-$router->get("/logout", [LoginController::class, "logout"]);
+$router->post("/logout", [LoginController::class, "logout"]);
 
 $router->comprobarRutas();
 
-//echo "<hr>luego de renderizar una vista, se sigue ejecutando el codigo PHP de este archivo";
+/*
+echo "luego de renderizar una vista, se sigue ejecutando el codigo PHP de /public/index.php";
+echo "<pre>";
+var_dump($_SESSION);
+echo "</pre>";
+*/
+
+
