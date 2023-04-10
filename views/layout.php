@@ -25,7 +25,6 @@
                 <a href="/">
                     <img src="/build/img/logo.svg" alt="Logotipo de Bienes Raices">
                 </a>
-
                 <!-- burguer menu - visible in mobile -->
                 <div class="mobile-menu">
                     <img src="/build/img/barras.svg" alt="icono menu responsive">

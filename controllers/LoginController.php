@@ -34,6 +34,7 @@ class LoginController {
                     // FALSE si los pass no coinciden
                     if($autenticado) {
                     // $autenticado === TRUE, los pass coinciden. autenticamos al usuario
+                        $auth->autenticar();
 
 
 
