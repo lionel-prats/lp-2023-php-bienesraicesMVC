@@ -17,19 +17,30 @@ class LoginController {
             $auth = new Admin($_POST);
             $errors = $auth->validar();
 
-            if(empty($errors)) {
-                // verificar si el email existe
+            if(empty($errors)) { 
+            // no hay errores, entramos a la autenticacion de usuario
 
                 $resultado = $auth->existeUsuario();
-                // $resultado === null si el usuario no existe
-                // $resultado === mysql_result Object si existe
-
+                // $resultado === null, si el mail ingresado por el usuario no existe
+                // $resultado === mysqli_result Object, si el mail ingresado por el usuario existe
+                
                 if(!$resultado) {
+                // el mail no existe en la base
                     $errors = Admin::getErrores();
                 } else {
-                    // verificar si el password existe 
+                // el mail existe en la base, vamos a verificar si el pass ingresado por el usuario coincide con el del registro asociado a ese mail 
+                    $autenticado = $auth->comprobarPassword($resultado);
+                    // TRUE si ambos pass coinciden 
+                    // FALSE si los pass no coinciden
+                    if($autenticado) {
+                    // $autenticado === TRUE, los pass coinciden. autenticamos al usuario
 
-                    // autenticar al usuario
+
+
+                    } else {
+                    // $autenticado === FALSE, los pass no coinciden
+                        $errors = Admin::getErrores();
+                    }
                 }
             }
         }

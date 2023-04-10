@@ -158,6 +158,9 @@ class PaginasController {
    }
    public static function contacto2($router) {
 
+      // PRUEBA CON LA FUNCION NATIVA DE PHP mail() PARA RECIBIR LOS MENSAJES QUE SE ENVIAN DESDE EL FORMULARIO DE CONTACTO DE UN SITIO WEB A UN CORREO ELECTRONICO EN PARTICULAR 
+      // tutorial SoyDalto -> https://www.youtube.com/watch?v=TtKPhnJDIL0
+
       if($_SERVER["REQUEST_METHOD"] === "POST") {
          if(!empty($_POST["name"]) && !empty($_POST["email"]) && !empty($_POST["asunto"]) && !empty($_POST["msg"])) {
             $name = $_POST["name"];

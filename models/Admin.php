@@ -34,7 +34,7 @@ class Admin extends ActiveRecord {
         $query = "SELECT * FROM " . self::$tabla . " WHERE email = '$this->email' LIMIT 1";
 
         $resultado = self::$db->query($query); 
-        // el metodo query() retorna un objeto mysql_result
+        // el metodo query() retorna un mysqli_result Object, una instancia de mysqli (la conexion a la base de datos) almacenada y presente en el atributo $db de ActiveRecord y en todas las clases que heredan de ella
         /*  
         mysqli_result Object
         (
@@ -54,5 +54,21 @@ class Admin extends ActiveRecord {
         return $resultado;
         // si existe usuario en la tabla usuarios con el mail ingresado por el cliente ($resultado->num_rows > 0) ...
         // el if(){} de arriba no se ejecutara y esta funcion retornara el objeto que retorna el metodo query() (VIDEO 433)
+    }
+
+    public function comprobarPassword($resultado) { 
+        $usuario = $resultado->fetch_object();
+        // como $usuario almacena una instancia de mysqli, podemos acceder al metodo fetch_object() para acceder a la informacion del registro encontrado de la tabla usuarios (VIDEO 434)
+        // esta informacion la retorna en formato stdClass Object (VIDEO 434)
+        // usamos fetch_object para acceder al password del registro encontrado en la base ($usuario->password), y poder comparar ese password con el ingresado por usuario
+
+        $autenticado = password_verify($this->password, $usuario->password);
+        // TRUE si ambos pass coinciden 
+        // FALSE si los pass no coinciden
+
+        if(!$autenticado) {
+            self::$errores[] = "El password es incorrecto";
+        }
+        return $autenticado;
     }
 }

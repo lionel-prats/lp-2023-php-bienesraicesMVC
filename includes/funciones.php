@@ -19,8 +19,8 @@ function userLogued() {
 
 function debuguear($variable) {
     echo "<pre>";
-    print_r($variable);
-    //var_dump($variable);
+    //print_r($variable);
+    var_dump($variable);
     echo "</pre>";
     exit;
 }

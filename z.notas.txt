@@ -690,3 +690,16 @@ OMITIR ERROR vvv
 @debuguear($variableInexistente); // $variableInexistente no existe vvv
     *** no se renderiza el error
 
+----- 
+
+VIDEO 434 
+
+funcion nativa de PHP para validar password en login de usuarios vvv 
+
+password_verify(string $sting, string $hashed_string) 
+
+* 1er parametro -> string sin hashear
+* 2do parametro -> string hasheado
+* esta funcion compara ambos strings 
+* retorna true si sus valores no hasheados coinciden
+* retorna false si sus valores no hasheados NO coinciden
