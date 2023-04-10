@@ -53,7 +53,9 @@ class LoginController {
     }
     
     public static function logout() {
-        echo "desde logout";
-
+        session_start();
+        session_destroy();
+        // $_SESSION = []; -> otra forma de vaciar el arreglo superglobal $_SESSION
+        header("Location: /");
     }
 }
